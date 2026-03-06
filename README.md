@@ -1,62 +1,239 @@
-# ☸️Voting App Kubernetes Project
-
-A comprehensive guide for setting up a Kubernetes cluster using Kind on an AWS EC2 instance, installing and configuring Argo CD, and deploying applications using Argo CD.
+# Kubernetes Observability with Prometheus & Grafana
 
 ## Overview
 
-This guide covers the steps to:
-- Launch an AWS EC2 instance.
-- Install Docker and Kind.
-- Create a Kubernetes cluster using Kind.
-- Install and access kubectl.
-- Set up the Kubernetes Dashboard.
-- Install and configure Argo CD.
-- Connect and manage your Kubernetes cluster with Argo CD.
+This project demonstrates how to implement **observability in a Kubernetes cluster** using **Prometheus and Grafana**.
 
+The monitoring stack collects real-time metrics from Kubernetes nodes and pods, and visualizes them using Grafana dashboards.
+
+This repository is part of a **complete DevOps workflow** that includes:
+
+* Infrastructure provisioning using Terraform
+* Kubernetes cluster deployment
+* GitOps deployment using ArgoCD
+* Monitoring using Prometheus and Grafana
+
+---
 
 ## Architecture
 
-![Architecture diagram](https://github.com/harshitsahu2311/Voting-app-kubernetes-Project/blob/main/you-ezgif.com-crop.gif)
+```
+Users
+  │
+  ▼
+Voting Application (Kubernetes)
+  │
+  ▼
+Prometheus (Metrics Collection)
+  │
+  ▼
+Grafana (Visualization Dashboards)
+```
 
-## Monitoring
+---
 
-![kubernetes-dashboard](https://github.com/harshitsahu2311/Voting-app-kubernetes-Project/blob/main/Screenshot%202024-10-09%20154634.png)
+## Tech Stack
 
-## Observability
+| Tool       | Purpose                    |
+| ---------- | -------------------------- |
+| Kubernetes | Container orchestration    |
+| Prometheus | Metrics collection         |
+| Grafana    | Monitoring dashboards      |
+| Helm       | Kubernetes package manager |
+| Docker     | Containerized applications |
+| AWS EC2    | Cloud infrastructure       |
 
-![Grafana diagram](grafana.png)
-![Prometheus diagram](prometheus.png)
+---
 
-* A front-end web app in [Python](/vote) which lets you vote between two options
-* A [Redis](https://hub.docker.com/_/redis/) which collects new votes
-* A [.NET](/worker/) worker which consumes votes and stores them in…
-* A [Postgres](https://hub.docker.com/_/postgres/) database backed by a Docker volume
-* A [Node.js](/result) web app which shows the results of the voting in real time
+## Observability Components
 
+### Prometheus
 
+Prometheus is a **time-series database and monitoring system** used to collect metrics from Kubernetes components.
 
-## Resume Description
+Features:
 
-### Project Title: 
+* Metrics scraping
+* Time-series database
+* PromQL query language
+* Kubernetes service discovery
 
-Automated Deployment of Scalable Applications on AWS EC2 with Kubernetes and Argo CD
+Example PromQL Query:
 
-### Description: 
+```
+sum(rate(container_cpu_usage_seconds_total{namespace="default"}[1m])) / sum(machine_cpu_cores) * 100
+```
 
-Led the deployment of scalable applications on AWS EC2 using Kubernetes and Argo CD for streamlined management and continuous integration. Orchestrated deployments via Kubernetes dashboard, ensuring efficient resource utilization and seamless scaling.
+---
 
-### Key Technologies:
+### Grafana
 
-* AWS EC2: Infrastructure hosting for Kubernetes clusters.
-* Kubernetes Dashboard: User-friendly interface for managing containerized applications.
-* Argo CD: Continuous Delivery tool for automated application deployments.
+Grafana is used for **visualizing metrics collected by Prometheus**.
 
-### Achievements:
+Dashboards created in this project:
 
-Implemented Kubernetes dashboard for visual management of containerized applications on AWS EC2 instances.
-Utilized Argo CD for automated deployment pipelines, enhancing deployment efficiency by 60%.
-Achieved seamless scaling and high availability, supporting 99.9% uptime for critical applications.
-This project description emphasizes your role in leveraging AWS EC2, Kubernetes, and Argo CD to optimize application deployment and management processes effectively.
+1. **Node Exporter Dashboard**
+2. **Kubernetes Cluster Dashboard**
 
+These dashboards display:
 
+* CPU usage
+* Memory usage
+* Disk usage
+* Network traffic
+* Running pods
+* Cluster resource utilization
 
+---
+
+## Grafana Dashboards
+
+### Node Exporter Dashboard
+
+Displays infrastructure metrics such as:
+
+* Node CPU usage
+* Memory usage
+* Disk usage
+* Network statistics
+* System uptime
+
+---
+
+### Kubernetes Cluster Dashboard
+
+Provides an overview of the Kubernetes cluster:
+
+* Number of running pods
+* Number of nodes
+* Cluster CPU utilization
+* Cluster memory usage
+* Resource counts
+
+---
+
+## Screenshots
+
+### Prometheus Metrics Query
+
+![Prometheus Dashboard](screenshots/prometheus-dashboard.png)
+
+---
+
+### Grafana Node Exporter Dashboard
+
+![Node Exporter Dashboard](screenshots/node-exporter-dashboard.png)
+
+---
+
+### Grafana Kubernetes Cluster Dashboard
+
+![Kubernetes Dashboard](screenshots/kubernetes-dashboard.png)
+
+---
+
+### Voting Application
+
+![Voting App](screenshots/voting-app.png)
+
+---
+
+## Installation Steps
+
+### 1 Install Helm
+
+```
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
+```
+
+---
+
+### 2 Create Monitoring Namespace
+
+```
+kubectl create namespace monitoring
+```
+
+---
+
+### 3 Add Helm Repository
+
+```
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update
+```
+
+---
+
+### 4 Install Prometheus & Grafana
+
+```
+helm install kind-prometheus prometheus-community/kube-prometheus-stack \
+--namespace monitoring
+```
+
+---
+
+### 5 Access Prometheus
+
+```
+kubectl port-forward svc/kind-prometheus-kube-prome-prometheus -n monitoring 9090:9090
+```
+
+Open:
+
+```
+http://localhost:9090
+```
+
+---
+
+### 6 Access Grafana
+
+```
+kubectl port-forward svc/kind-prometheus-grafana -n monitoring 3000:80
+```
+
+Open:
+
+```
+http://localhost:3000
+```
+
+Default credentials:
+
+```
+username: admin
+password: prom-operator
+```
+
+---
+
+## Learning Outcomes
+
+Through this project, I learned:
+
+* Kubernetes observability principles
+* Prometheus metrics scraping
+* Writing PromQL queries
+* Grafana dashboard creation
+* Kubernetes cluster monitoring
+
+---
+
+## Future Improvements
+
+* Add alerting using Alertmanager
+* Integrate log monitoring with Loki
+* Implement distributed tracing with Jaeger
+* Add application-level metrics
+
+---
+
+## Author
+
+Faizan
+
+DevOps & Cloud Enthusiast
