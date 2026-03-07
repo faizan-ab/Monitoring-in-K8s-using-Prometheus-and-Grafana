@@ -89,13 +89,13 @@ These dashboards show:
 
 ![Prometheus](screenshots/prometheus-dashboard.jpeg)
 
-### Grafana Node Exporter Dashboard
-
-![Grafana Node Exporter](screenshots/node-exporter-dashboard.png)
-
 ### Kubernetes Cluster Monitoring Dashboard
 
 ![Grafana Kubernetes Dashboard](screenshots/kubernetes-dashboard.jpeg)
+
+### Grafana Node Exporter Dashboard
+
+![Grafana Node Exporter](screenshots/node-exporter-dashboard.png)
 
 ### Voting Application
 
