@@ -99,7 +99,7 @@ These dashboards show:
 
 ### Voting Application
 
-![Voting App](screenshots/voting-app.png)
+![Voting App](screenshots/vote-app.png)
 
 ---
 
