@@ -87,15 +87,15 @@ These dashboards show:
 
 ### Prometheus Metrics Query
 
-![Prometheus](screenshots/prometheus-dashboard.png)
+![Prometheus](screenshots/prometheus-dashboard.jpeg)
 
 ### Grafana Node Exporter Dashboard
 
-![Grafana Node Exporter](screenshots/node-exporter-dashboard.png)
+![Grafana Node Exporter](screenshots/node-exporter-dashboard.jpeg)
 
 ### Kubernetes Cluster Monitoring Dashboard
 
-![Grafana Kubernetes Dashboard](screenshots/kubernetes-dashboard.png)
+![Grafana Kubernetes Dashboard](screenshots/kubernetes-dashboard.jpeg)
 
 ### Voting Application
 
@@ -103,7 +103,7 @@ These dashboards show:
 
 ---
 
-## 🧠 Learning Outcomes
+## 🧠 Key Learning
 
 Through this project I learned:
 
