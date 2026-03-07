@@ -91,7 +91,7 @@ These dashboards show:
 
 ### Grafana Node Exporter Dashboard
 
-![Grafana Node Exporter](screenshots/node-exporter-dashboard.jpeg)
+![Grafana Node Exporter](screenshots/node-exporter-dashboard.png)
 
 ### Kubernetes Cluster Monitoring Dashboard
 
